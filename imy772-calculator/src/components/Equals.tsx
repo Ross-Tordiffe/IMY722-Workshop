@@ -5,6 +5,6 @@ export default function Equals({calculate} : {calculate: () => void}) {
     }
     
     return (
-        <button className={"button"} onClick={handleEquals}>=</button>
+        <button data-cy={`button-equals`} className={"button"} onClick={handleEquals}>=</button>
     )
 }

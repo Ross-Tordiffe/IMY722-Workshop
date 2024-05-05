@@ -12,6 +12,6 @@ export default function RemoveButton({firstString, operator, secondString, setFi
     }
     
     return (
-        <button className={"button"} onClick={handleRemove}>C</button>
+        <button data-cy={`button-remove`} className={"button"} onClick={handleRemove}>&lt;</button>
     )
 }

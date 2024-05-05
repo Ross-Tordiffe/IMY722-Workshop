@@ -2,6 +2,6 @@ import React, { useState } from 'react';
 export default function DisplayField( {displayValue} : {displayValue: string}) {
     
     return (
-        <input className={"display"} type="text" value="0" readOnly />
+        <input data-cy={`input-display`} className={"display"} type="text" value={displayValue} readOnly={true}></input>
     )
 }
