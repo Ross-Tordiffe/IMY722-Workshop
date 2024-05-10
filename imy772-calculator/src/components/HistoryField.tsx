@@ -17,15 +17,14 @@ export default function HistoryField({ history, setHistory }: { history: Array<s
     
     useEffect(() => {
         fetchHistory().then((data) => {
-            const newHistory = data.history.map((item: {problem: string, answer: string}) => {
-                return `${item.problem} = ${item.answer}`
-            });
+            if(data.history === undefined) return console.error('Error: history is undefined');
+            const newHistory = data.history.map((problem: { problem: string, answer: string }) => `${problem.problem} = ${problem.answer}`);
             setHistory(newHistory);
         });
     }, []);
     
     return (
-        <div className={`history-field`}>
+        <div data-cy={"history-field"} className={"history-field"}>
             {history}
         </div>
     )
