@@ -3,9 +3,9 @@ import DisplayField from './DisplayField';
 import ClearButton from './ClearButton';
 import RemoveButton from './RemoveButton';
 import Equals from './Equals';
-import HexKeypad from "@/components/HexKeypad";
-import ArithmeticButtons from "@/components/ArithmeticButtons";
-import HistoryField from "@/components/HistoryField";
+import HexKeypad from "../components/HexKeypad";
+import ArithmeticButtons from "../components/ArithmeticButtons";
+import HistoryField from "../components/HistoryField";
 export default function Calculator() {
     
     const [firstString, setFirstString] = useState("")
@@ -13,8 +13,54 @@ export default function Calculator() {
     const [operator, setOperator] = useState("")
     const [displayValue, setDisplayValue] = useState("0")
     const [history, setHistory] = useState([""])
+    const [isShowingAnswer, setIsShowingAnswer] = useState(false)
+        
+    const calculate = async () => {
+        if (isShowingAnswer || firstString === "" || secondString === "" || operator === "") return
+        if (firstString === "0" && operator === "/" && secondString === "0") {
+            setDisplayValue("Error - Division by zero")
+            return
+        }
+        
+        let firstValue = firstString === "" ? 0 : parseInt(firstString, 16);
+        let secondValue = secondString === "" ? 0 : parseInt(secondString, 16);
+        let result = 0
+        switch (operator) {
+            case "+":
+                result = firstValue + secondValue
+                break
+            case "-":
+                result = firstValue - secondValue
+                break
+            case "*":
+                result = firstValue * secondValue
+                break
+            case "/":
+                result = firstValue / secondValue
+                break
+            default:
+                break
+        }
+        const resultString = result.toString(16).toUpperCase();
+        await postHistory(`${firstString} ${operator} ${secondString}`, resultString);
+        setDisplayValue(resultString);
+        setIsShowingAnswer(true);
+        setHistory([...history, `${firstString} ${operator} ${secondString} = ${resultString}`]);
+    }
     
-    const calculate = () => {}
+    const postHistory = async (problem: string, answer: string) => {
+        try {
+            await fetch('/api/routes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ problem: problem, answer: answer }),
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
     
     return (
         <div className={"calculator"}>
