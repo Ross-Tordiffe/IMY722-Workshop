@@ -11,6 +11,6 @@ describe('Equals', () => {
     const calculateSpy = cy.spy().as('calculateSpy')
     cy.mount(<Equals calculate={calculateSpy} />)
     cy.get('@equalsButton').click()
-    cy.get('@calculateSpy').should('have.been.called')
+    cy.get('@calculateSpy').should('have.been.calledOnce')
   })
 })

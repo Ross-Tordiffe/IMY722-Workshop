@@ -67,7 +67,7 @@ export default function Calculator() {
             <div className={"calculator-interface"}>
                 <DisplayField displayValue={displayValue} />
                 <div className={"hex-buttons"}>
-                    <HexKeypad setFirstString={setFirstString} setSecondString={setSecondString} operator={operator} />
+                    <HexKeypad firstString={firstString} operator={operator} secondString={secondString} setFirstString={setFirstString} setSecondString={setSecondString} />
                 </div>
                 <div className={"arithmetic-buttons"}>
                     <ArithmeticButtons setOperator={setOperator} />
