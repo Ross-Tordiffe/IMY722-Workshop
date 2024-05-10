@@ -9,9 +9,9 @@ export default function HexKeypad({ firstString, operator, secondString, setFirs
     const hexCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
     const handleClick = (hexCharacter: string) => {
         if (operator === '' && firstString.length < 3) {
-            setFirstString(hexCharacter)
+            setFirstString(firstString + hexCharacter)
         } else if(operator !== '' && secondString.length < 3) {
-            setSecondString(hexCharacter)
+            setSecondString(secondString + hexCharacter)
         } else {
             return
         }
