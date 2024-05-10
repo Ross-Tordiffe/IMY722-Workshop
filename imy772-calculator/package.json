@@ -9,17 +9,20 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
+    "mongodb": "^6.6.1",
+    "next": "13.5.6",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "13.5.6"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10",
+    "cypress": "^13.8.1",
+    "cypress-mongodb": "^6.2.0",
     "postcss": "^8",
-    "tailwindcss": "^3"
+    "tailwindcss": "^3",
+    "typescript": "^5"
   }
 }
