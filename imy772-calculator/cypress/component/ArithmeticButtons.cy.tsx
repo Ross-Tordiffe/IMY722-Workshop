@@ -4,6 +4,9 @@ describe('Addition button', () => {
     beforeEach(() => {
         cy.mount(<ArithmeticButtons setOperator={() => {}} />)
         cy.get('[data-cy="button-arithmetic-add"]').as('addButton')
+        cy.get('[data-cy="button-arithmetic-subtract"]').as('subtractButton')
+        cy.get('[data-cy="button-arithmetic-multiply"]').as('multiplyButton')
+        cy.get('[data-cy="button-arithmetic-divide"]').as('divideButton')
     })
     
     it('should set the operator to add (+)', () => {
@@ -17,7 +20,7 @@ describe('Addition button', () => {
 describe('Subtraction button', () => {
     beforeEach(() => {
         cy.mount(<ArithmeticButtons setOperator={() => {}} />)
-        cy.get('[data-cy="button-arithmetic-subtract"]').as('subtractButton')
+        cy.get('@subtractButton').as('subtractButton')
     })
     
     it('should set the operator to subtract (-)', () => {
@@ -31,7 +34,7 @@ describe('Subtraction button', () => {
 describe('Multiplication button', () => {
     beforeEach(() => {
         cy.mount(<ArithmeticButtons setOperator={() => {}} />)
-        cy.get('[data-cy="button-arithmetic-multiply"]').as('multiplyButton')
+        cy.get('@multiplyButton').as('multiplyButton')
     })
     
     it('should set the operator to multiply (*)', () => {
@@ -45,7 +48,7 @@ describe('Multiplication button', () => {
 describe('Division button', () => {
     beforeEach(() => {
         cy.mount(<ArithmeticButtons setOperator={() => {}} />)
-        cy.get('[data-cy="button-arithmetic-divide"]').as('divideButton')
+        cy.get('@divideButton').as('divideButton')
     })
     
     it('should set the operator to divide (/)', () => {
