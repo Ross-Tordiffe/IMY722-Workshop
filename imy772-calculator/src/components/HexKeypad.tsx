@@ -1,11 +1,19 @@
 ﻿import React, { useState } from 'react';
-export default function HexKeypad({ setFirstString, setSecondString, operator }: { setFirstString: React.Dispatch<React.SetStateAction<string>>, setSecondString: React.Dispatch<React.SetStateAction<string>>, operator: string }) {
+export default function HexKeypad({ firstString, operator, secondString, setFirstString, setSecondString}: { 
+    firstString: string, 
+    operator: string, 
+    secondString: string, 
+    setFirstString: React.Dispatch<React.SetStateAction<string>>,
+    setSecondString: React.Dispatch<React.SetStateAction<string>> 
+}){
     const hexCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
     const handleClick = (hexCharacter: string) => {
-        if (operator === '') {
+        if (operator === '' && firstString.length < 3) {
             setFirstString(hexCharacter)
-        } else {
+        } else if(operator !== '' && secondString.length < 3) {
             setSecondString(hexCharacter)
+        } else {
+            return
         }
     }
     return (
