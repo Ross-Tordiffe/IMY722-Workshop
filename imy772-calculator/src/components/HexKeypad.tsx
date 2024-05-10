@@ -17,9 +17,10 @@ export default function HexKeypad({ firstString, operator, secondString, setFirs
         }
     }
     return (
-        <div className={`hex-keypad`}>
+        <div className={`hex-keypad grid grid-cols-4 gap-1`}>
             {hexCharacters.map((hexCharacter, index) => {
-                return <button key={index} data-cy={`button-hex-${hexCharacter}`} className={``} onClick={() => handleClick(hexCharacter)}>{hexCharacter}</button>
+                return <button key={index} data-cy={`button-hex-${hexCharacter}`} className={`p-3 bg-gray-700 rounded-md text-white`}
+                           onClick={() => handleClick(hexCharacter)}>{hexCharacter}</button>
             })}
         </div>
     )

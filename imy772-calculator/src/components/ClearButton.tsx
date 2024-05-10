@@ -7,6 +7,6 @@ export default function ClearButton({setFirstString, setOperator, setSecondStrin
   }
   
   return (
-    <button data-cy={`button-clear`} className={"button"} onClick={handleClear}>AC</button>
+    <button data-cy={`button-clear`} className={"button col-span-1 py-3 bg-amber-700 rounded-md"} onClick={handleClear}>AC</button>
   )
 }

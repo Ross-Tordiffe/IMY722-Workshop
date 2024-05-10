@@ -42,7 +42,7 @@ export default function Calculator() {
                 break
         }
         const resultString = result.toString(16).toUpperCase();
-        await postHistory(`${firstString} ${operator} ${secondString}`, resultString);
+        // await postHistory(`${firstString} ${operator} ${secondString}`, resultString);
         setDisplayValue(resultString);
         setIsShowingAnswer(true);
         setHistory([...history, `${firstString} ${operator} ${secondString} = ${resultString}`]);
@@ -63,22 +63,23 @@ export default function Calculator() {
     }
     
     return (
-        <div className={"calculator"}>
-            <div className={"calculator-interface"}>
+        <div className={"calculator grid grid-cols-2 bg-gray-800 p-1 rounded-lg text-xl text-center align-middle"}>
+            <div className={"calculator-interface text-white bg-gray-800 rounded-s-lg p-2"}>
                 <DisplayField displayValue={displayValue} />
                 <div className={"hex-buttons"}>
                     <HexKeypad firstString={firstString} operator={operator} secondString={secondString} setFirstString={setFirstString} setSecondString={setSecondString} />
                 </div>
+                <div className={"line w-full border mt-1 border-gray-500"}></div>
                 <div className={"arithmetic-buttons"}>
                     <ArithmeticButtons setOperator={setOperator} />
                 </div>
-                <div className={"edit-buttons"}>
+                <div className={"edit-buttons grid grid-cols-4 gap-1 w-full mt-1 text-2xl"}>  
                     <ClearButton setFirstString={setFirstString} setOperator={setOperator} setSecondString={setSecondString} />
                     <RemoveButton firstString={firstString} operator={operator} secondString={secondString} setFirstString={setFirstString} setOperator={setOperator} setSecondString={setSecondString} />
                     <Equals calculate={calculate} />
                 </div>
             </div>
-            <div className={"calculator-history"}>
+            <div className={"calculator-history bg-gray-700"}>
                 <HistoryField history={history} setHistory={setHistory} />
             </div>
         </div>
