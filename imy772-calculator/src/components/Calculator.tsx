@@ -16,7 +16,6 @@ export default function Calculator() {
     const [isShowingAnswer, setIsShowingAnswer] = useState(false)
 
     useEffect(() => {
-
         if ((firstString === "" && operator === "" && secondString === "")) {
             if(!isShowingAnswer) setDisplayValue("0");
         } else {
@@ -28,7 +27,6 @@ export default function Calculator() {
     },[firstString, operator, secondString]);
 
     useEffect(() => {
-        console.log("displayValue: ", displayValue)
     } ,[displayValue]);
     const calculate = async () => {
         if (isShowingAnswer || (firstString === "" && secondString === "" && operator === "") || (firstString === "" && operator !== "" && secondString === "")) return
@@ -36,10 +34,8 @@ export default function Calculator() {
             setDisplayValue("Error - Division by zero")
             return
         }
-
-        console.log("secondString: ", secondString)
+        
         if(secondString === "") {
-            console.log("setting secondString to 0")
             await setSecondString("0")
         }
 
@@ -64,7 +60,7 @@ export default function Calculator() {
                 break
         }
         const resultString = result.toString(16).toUpperCase();
-        // await postHistory(`${firstString} ${operator} ${secondString}`, resultString);
+        await postHistory(`${firstString} ${operator} ${secondString}`, resultString);
         setDisplayValue(resultString);
         setIsShowingAnswer(true);
         setHistory([...history, `${firstString} ${operator} ${secondString === "" ? "0" : secondString} = ${resultString}`]);

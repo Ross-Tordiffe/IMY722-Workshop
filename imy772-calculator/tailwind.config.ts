@@ -17,6 +17,12 @@ const config: Config = {
         2: '2',
         3: '3',
       },
+      minHeight: {
+        90: '22.5rem',
+      },
+      maxHeight: {
+        90: '22.5rem',
+      },
     },
   },
   plugins: [],

@@ -15,6 +15,20 @@ export default function HistoryField({ history, setHistory }: { history: Array<s
         }
     }
     
+    const handleClearHistory = async () => {
+        try {
+            await fetch('/api/routes', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            setHistory([]);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+    
     useEffect(() => {
         fetchHistory().then((data) => {
             if(data.history === undefined) return console.error('Error: history is undefined');
@@ -24,10 +38,15 @@ export default function HistoryField({ history, setHistory }: { history: Array<s
     }, []);
     
     return (
-        <div data-cy={"history-field"} className={"history-field text-white mt-2"}>
-            {history.map((problem, index) => {
-                return <div key={index} className={"history"}>{problem}</div>
-            })}
+        <div data-cy={"history-field"} className={"history-field text-white pt-2 h-full flex flex-col"}>
+            <div className={"history-list overflow-scroll max-h-90 min-h-90"}>
+                {history.map((problem, index) => {
+                    return <div key={index} className={"history"}>{problem}</div>
+                })}
+            </div>
+            <div className={"clear-history shrink mb-1 bg-gray-500 grow flex flex-col justify-center items-center"}>
+                <button data-cy={"history-clear"} className={"bg-gray-800 px-5 pt-1 pb-2 rounded-lg w-10/12"} disabled={history.length === 0} onClick={() => handleClearHistory()}>Clear History</button>
+            </div>
         </div>
     )
 }

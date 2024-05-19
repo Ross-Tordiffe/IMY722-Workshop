@@ -29,7 +29,7 @@ describe('Calculator Database', () => {
     
     it('should display nothing in the history field after clearing it', () => {
         cy.get('@historyClear').click()
-        cy.get('@historyField').should('have.html', '')
+        cy.get('@historyField').children('.history-list').should('have.html', '')
     })
 
     it('should display 4A + 24 = 6E in the history field after adding 4A and 24', () => {
@@ -37,14 +37,14 @@ describe('Calculator Database', () => {
         cy.get('@hexButtonA').click()
         cy.get('@addButton').click()
         cy.get('@hexButton2').click()
-        cy.get('@hexButton3').click()
+        cy.get('@hexButton4').click()
         cy.get('@equalsButton').click()
         cy.get('@historyField').should('contain', '4A + 24 = 6E')
     })
 
     it('should display nothing in the history field after clearing it again', () => {
         cy.get('@historyClear').click()
-        cy.get('@historyField').should('have.html', '')
+        cy.get('@historyField').children('.history-list').should('have.html', '')
     })
     
     it('should display 4A + 24 = 6E and 4A - 24 = 26 in the history field', () => {
@@ -52,7 +52,7 @@ describe('Calculator Database', () => {
         cy.get('@hexButtonA').click()
         cy.get('@addButton').click()
         cy.get('@hexButton2').click()
-        cy.get('@hexButton3').click()
+        cy.get('@hexButton4').click()
         cy.get('@equalsButton').click()
         cy.get('@hexButton4').click()
         cy.get('@hexButtonA').click()
