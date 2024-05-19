@@ -39,7 +39,7 @@ export default function HistoryField({ history, setHistory }: { history: Array<s
     
     return (
         <div data-cy={"history-field"} className={"history-field text-white pt-2 h-full flex flex-col"}>
-            <div className={"history-list overflow-scroll max-h-90 min-h-90"}>
+            <div className={"history-list text-left ps-2 overflow-scroll max-h-90 min-h-90"}>
                 {history.map((problem, index) => {
                     return <div key={index} className={"history"}>{problem}</div>
                 })}
