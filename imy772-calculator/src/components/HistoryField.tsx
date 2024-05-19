@@ -24,7 +24,7 @@ export default function HistoryField({ history, setHistory }: { history: Array<s
     }, []);
     
     return (
-        <div data-cy={"history-field"} className={"history-field"}>
+        <div data-cy={"history-field"} className={"history-field text-white mt-2"}>
             {history.map((problem, index) => {
                 return <div key={index} className={"history"}>{problem}</div>
             })}
