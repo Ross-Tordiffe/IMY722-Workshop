@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React, {useEffect, useState} from 'react';
 import DisplayField from './DisplayField';
 import ClearButton from './ClearButton';
 import RemoveButton from './RemoveButton';
@@ -15,6 +15,14 @@ export default function Calculator() {
     const [history, setHistory] = useState([""])
     const [isShowingAnswer, setIsShowingAnswer] = useState(false)
         
+    useEffect(() => {
+        console.log("firstString: ", firstString)
+        if (firstString === "" && operator === "" && secondString === "") {
+            setDisplayValue("0")
+        } else {
+            setDisplayValue(`${firstString}${operator}${secondString}`)
+        }
+    },[firstString, operator, secondString]);
     const calculate = async () => {
         if (isShowingAnswer || firstString === "" || secondString === "" || operator === "") return
         if (firstString === "0" && operator === "/" && secondString === "0") {
@@ -30,13 +38,13 @@ export default function Calculator() {
                 result = firstValue + secondValue
                 break
             case "-":
-                result = firstValue - secondValue
+                result = Math.abs(firstValue - secondValue)
                 break
             case "*":
                 result = firstValue * secondValue
                 break
             case "/":
-                result = firstValue / secondValue
+                result = Math.floor(firstValue / secondValue)
                 break
             default:
                 break

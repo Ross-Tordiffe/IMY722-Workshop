@@ -24,18 +24,18 @@
   it('should display "0" on load', () => {
     cy.get('@display').should('have.value', '0')
   })
-  
+
   it('should add "1" to the display', () => {
     cy.get('@hexButton1').click()
     cy.get('@display').should('have.value', '1')
   })
-  
+
   it('should add "1A" to the display', () => {
     cy.get('@hexButton1').click()
     cy.get('@hexButtonA').click()
     cy.get('@display').should('have.value', '1A')
   })
-  
+
   it('should add the operator "1A+" to the display', () => {
     cy.get('@hexButton1').click()
     cy.get('@hexButtonA').click()
@@ -51,7 +51,7 @@
     cy.get('@hexButton2').click()
     cy.get('@display').should('have.value', '1A+F2')
   })
-  
+
   it ('should remove 2 from the display', () => {
     cy.get('@hexButton1').click()
     cy.get('@hexButtonA').click()
@@ -94,17 +94,17 @@
 
   // Subtraction
 
-  it('should calculate F2-1A and display 51 with correct history', () => {
+  it('should calculate F2-A1 and display 51 with correct history', () => {
     cy.get('@hexButtonF').click()
     cy.get('@hexButton2').click()
     cy.get('@subtractButton').click()
-    cy.get('@hexButton1').click()
     cy.get('@hexButtonA').click()
+    cy.get('@hexButton1').click()
     cy.get('@equalsButton').click()
     cy.get('@display').should('have.value', '51')
     cy.get('@historyField').should('contain.text', 'F2 - A1 = 51')
   })
-
+  
   it('should calculate 1A-F2 and display D8 with correct history', () => {
     cy.get('@hexButton1').click()
     cy.get('@hexButtonA').click()
@@ -115,10 +115,6 @@
     cy.get('@display').should('have.value', 'D8')
     cy.get('@historyField').should('contain.text', '1A - F2 = D8')
   })
-
-
-
-
 
   // Multiplication
 
