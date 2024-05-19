@@ -19,6 +19,8 @@
     cy.get('[data-cy=history-field]').as('historyField')
   })
   
+  // Basic functionality and Addition
+  
   it('should display "0" on load', () => {
     cy.get('@display').should('have.value', '0')
   })
@@ -71,7 +73,74 @@
     cy.get('@addButton').click()
     cy.get('@hexButton1').click()
     cy.get('@equalsButton').click()
-    cy.get('@historyField').should('contain.text', '1A+F2=10C')
+    cy.get('@historyField').should('contain.text', '1A + F2 = 10C')
   })
   
+  // Subtraction
+
+  it('should calculate F2-1A and display 51 with correct history', () => {
+    cy.get('@hexButton1').click()
+    cy.get('@addButton').click()
+    cy.get('@hexButton1').click()
+    cy.get('@subtractButton').click()
+    cy.get('@hexButton2').click()
+    cy.get('@equalsButton').click()
+    cy.get('@display').should('have.value', '51')
+    cy.get('@historyField').should('contain.text', 'F2 - A1 = 51')
+  })
+  
+  it('should calculate 1A-F2 and display D8 with correct history', () => {
+    cy.get('@hexButton1').click()
+    cy.get('@addButton').click()
+    cy.get('@hexButton1').click()
+    cy.get('@subtractButton').click()
+    cy.get('@hexButton2').click()
+    cy.get('@equalsButton').click()
+    cy.get('@display').should('have.value', 'D8')
+    cy.get('@historyField').should('contain.text', '1A - F2 = D8')
+  })
+  
+  
+  
+  
+  
+  // Multiplication
+  
+  it('should calculate 1A*F2 and display 1894 with correct history', () => {
+    cy.get('@hexButton1').click()
+    cy.get('@addButton').click()
+    cy.get('@hexButton1').click()
+    cy.get('@multiplyButton').click()
+    cy.get('@hexButtonF').click()
+    cy.get('@hexButton2').click()
+    cy.get('@equalsButton').click()
+    cy.get('@display').should('have.value', '1894')
+    cy.get('@historyField').should('contain.text', '1A * F2 = 1894')
+  })
+  
+  // Division
+
+  it('should calculate F2/2 and display 79 with correct history', () => {
+    cy.get('@hexButton1').click()
+    cy.get('@addButton').click()
+    cy.get('@hexButton1').click()
+    cy.get('@divideButton').click()
+    cy.get('@hexButtonF').click()
+    cy.get('@hexButton2').click()
+    cy.get('@equalsButton').click()
+    cy.get('@display').should('have.value', '79')
+    cy.get('@historyField').should('contain.text', 'F2 / 2 = 79')
+  })
+  
+  it('should calculate F2/A1 and display 1 with correct history', () => {
+    cy.get('@hexButton1').click()
+    cy.get('@addButton').click()
+    cy.get('@hexButton1').click()
+    cy.get('@divideButton').click()
+    cy.get('@hexButtonF').click()
+    cy.get('@hexButton2').click()
+    cy.get('@equalsButton').click()
+    cy.get('@display').should('have.value', '1')
+    cy.get('@historyField').should('contain.text', 'F2 / A1 = 1')
+  })
 })
