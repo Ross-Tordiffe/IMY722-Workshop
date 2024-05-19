@@ -19,6 +19,7 @@ export default function Calculator() {
         if ((firstString === "" && operator === "" && secondString === "")) {
             if(!isShowingAnswer) setDisplayValue("0");
         } else {
+            isShowingAnswer && setIsShowingAnswer(false)
             if(firstString === "" && operator !== "" && secondString === "") {
                 setFirstString("0")
             }
