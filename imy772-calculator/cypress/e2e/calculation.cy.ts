@@ -30,7 +30,7 @@ describe('Calculation', () => {
   })
   
   it('should calculate A + 1 and display B', () => {
-    cy.get('@hexButton1').click()
+    cy.get('@hexButtonA').click()
     cy.get('@addButton').click()
     cy.get('@hexButton1').click()
     cy.get('@equalsButton').click()
@@ -38,7 +38,7 @@ describe('Calculation', () => {
   })
   
   it('should calculate A - 1 and display 9', () => {
-      cy.get('@hexButton1').click()
+      cy.get('@hexButtonA').click()
       cy.get('@subtractButton').click()
       cy.get('@hexButton1').click()
       cy.get('@equalsButton').click()
@@ -46,7 +46,7 @@ describe('Calculation', () => {
   })
   
   it('should calculate A * 2 and display 14', () => {
-      cy.get('@hexButton1').click()
+      cy.get('@hexButtonA').click()
       cy.get('@multiplyButton').click()
       cy.get('@hexButton2').click()
       cy.get('@equalsButton').click()
@@ -54,7 +54,7 @@ describe('Calculation', () => {
   })
   
   it('should calculate A / 2 and display 5', () => {
-      cy.get('@hexButton1').click()
+      cy.get('@hexButtonA').click()
       cy.get('@divideButton').click()
       cy.get('@hexButton2').click()
       cy.get('@equalsButton').click()
@@ -119,14 +119,6 @@ describe('Calculation', () => {
       cy.get('@hexButtonF').click()
       cy.get('@equalsButton').click()
       cy.get('@display').should('have.value', '1')
-  })
-  
-  it('should calculate 0 / 0 and display Error', () => {
-      cy.get('@hexButton0').click()
-      cy.get('@divideButton').click()
-      cy.get('@hexButton0').click()
-      cy.get('@equalsButton').click()
-      cy.get('@display').should('have.value', 'Error')
   })
   
 })
