@@ -7,29 +7,42 @@ import HexKeypad from "../components/HexKeypad";
 import ArithmeticButtons from "../components/ArithmeticButtons";
 import HistoryField from "../components/HistoryField";
 export default function Calculator() {
-    
+
     const [firstString, setFirstString] = useState("")
     const [secondString, setSecondString] = useState("")
     const [operator, setOperator] = useState("")
     const [displayValue, setDisplayValue] = useState("0")
     const [history, setHistory] = useState([""])
     const [isShowingAnswer, setIsShowingAnswer] = useState(false)
-        
+
     useEffect(() => {
-        console.log("firstString: ", firstString)
-        if (firstString === "" && operator === "" && secondString === "") {
-            setDisplayValue("0")
+
+        if ((firstString === "" && operator === "" && secondString === "")) {
+            if(!isShowingAnswer) setDisplayValue("0");
         } else {
+            if(firstString === "" && operator !== "" && secondString === "") {
+                setFirstString("0")
+            }
             setDisplayValue(`${firstString}${operator}${secondString}`)
         }
     },[firstString, operator, secondString]);
+
+    useEffect(() => {
+        console.log("displayValue: ", displayValue)
+    } ,[displayValue]);
     const calculate = async () => {
-        if (isShowingAnswer || firstString === "" || secondString === "" || operator === "") return
-        if (firstString === "0" && operator === "/" && secondString === "0") {
+        if (isShowingAnswer || (firstString === "" && secondString === "" && operator === "") || (firstString === "" && operator !== "" && secondString === "")) return
+        if (operator === "/" && secondString === "0") {
             setDisplayValue("Error - Division by zero")
             return
         }
-        
+
+        console.log("secondString: ", secondString)
+        if(secondString === "") {
+            console.log("setting secondString to 0")
+            await setSecondString("0")
+        }
+
         let firstValue = firstString === "" ? 0 : parseInt(firstString, 16);
         let secondValue = secondString === "" ? 0 : parseInt(secondString, 16);
         let result = 0
@@ -39,6 +52,7 @@ export default function Calculator() {
                 break
             case "-":
                 result = Math.abs(firstValue - secondValue)
+                console.log("firstValue: ", firstValue, " secondValue: ", secondValue, " result: ", result)
                 break
             case "*":
                 result = firstValue * secondValue
@@ -53,9 +67,13 @@ export default function Calculator() {
         // await postHistory(`${firstString} ${operator} ${secondString}`, resultString);
         setDisplayValue(resultString);
         setIsShowingAnswer(true);
-        setHistory([...history, `${firstString} ${operator} ${secondString} = ${resultString}`]);
+        setHistory([...history, `${firstString} ${operator} ${secondString === "" ? "0" : secondString} = ${resultString}`]);
+        setFirstString('');
+        setOperator('');
+        setSecondString('');
+
     }
-    
+
     const postHistory = async (problem: string, answer: string) => {
         try {
             await fetch('/api/routes', {
@@ -69,27 +87,27 @@ export default function Calculator() {
             console.error('Error:', error);
         }
     }
-    
+
     return (
-        <div className={"calculator grid grid-cols-2 bg-gray-800 p-1 rounded-lg text-xl text-center align-middle"}>
-            <div className={"calculator-interface text-white bg-gray-800 rounded-s-lg p-2"}>
-                <DisplayField displayValue={displayValue} />
-                <div className={"hex-buttons"}>
-                    <HexKeypad firstString={firstString} operator={operator} secondString={secondString} setFirstString={setFirstString} setSecondString={setSecondString} />
-                </div>
-                <div className={"line w-full border mt-1 border-gray-500"}></div>
-                <div className={"arithmetic-buttons"}>
-                    <ArithmeticButtons setOperator={setOperator} />
-                </div>
-                <div className={"edit-buttons grid grid-cols-4 gap-1 w-full mt-1 text-2xl"}>  
-                    <ClearButton setFirstString={setFirstString} setOperator={setOperator} setSecondString={setSecondString} />
-                    <RemoveButton firstString={firstString} operator={operator} secondString={secondString} setFirstString={setFirstString} setOperator={setOperator} setSecondString={setSecondString} />
-                    <Equals calculate={calculate} />
-                </div>
-            </div>
-            <div className={"calculator-history bg-gray-700"}>
-                <HistoryField history={history} setHistory={setHistory} />
-            </div>
-        </div>
+      <div className={"calculator grid grid-cols-2 bg-gray-800 p-1 rounded-lg text-xl text-center align-middle"}>
+          <div className={"calculator-interface text-white bg-gray-800 rounded-s-lg p-2"}>
+              <DisplayField displayValue={displayValue} />
+              <div className={"hex-buttons"}>
+                  <HexKeypad firstString={firstString} operator={operator} secondString={secondString} setFirstString={setFirstString} setSecondString={setSecondString} />
+              </div>
+              <div className={"line w-full border mt-1 border-gray-500"}></div>
+              <div className={"arithmetic-buttons"}>
+                  <ArithmeticButtons setOperator={setOperator} />
+              </div>
+              <div className={"edit-buttons grid grid-cols-4 gap-1 w-full mt-1 text-2xl"}>
+                  <ClearButton setFirstString={setFirstString} setOperator={setOperator} setSecondString={setSecondString} />
+                  <RemoveButton firstString={firstString} operator={operator} secondString={secondString} setFirstString={setFirstString} setOperator={setOperator} setSecondString={setSecondString} />
+                  <Equals calculate={calculate} />
+              </div>
+          </div>
+          <div className={"calculator-history bg-gray-700"}>
+              <HistoryField history={history} setHistory={setHistory} />
+          </div>
+      </div>
     )
 }
