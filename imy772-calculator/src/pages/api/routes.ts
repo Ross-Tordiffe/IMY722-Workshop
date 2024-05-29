@@ -14,6 +14,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
     await connectMongo();
     const connection = await fetchCollection('history');
     await connection.insertOne({ problem: problem, answer: answer });
+    console.log('History saved');
     return res.status(200).json({ history: [{ problem: problem, answer: answer }], message: 'History saved' });
     
   } else if (req.method === 'GET') {
