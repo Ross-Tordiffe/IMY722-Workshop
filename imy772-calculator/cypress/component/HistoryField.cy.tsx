@@ -9,7 +9,7 @@ describe('HistoryField', () => {
 
     it('should not display history if there is no history', () => {
         cy.mount(<HistoryField history={[]} setHistory={() => {}} />)
-        cy.get('@historyField').should('be.empty')
+        cy.get('@historyField').children('.history-list').should('have.html', '')
     })
     
     it('should display history', () => {
