@@ -6,6 +6,73 @@ describe('Visit site', () => {
     })
 })
 
+describe("API Direct Testing", () => {
+    it("should get the history", () => {
+        cy.request({
+            url: 'api/routes',
+            method: 'GET',
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(200)
+        })
+    })
+
+    it("should add an entry to the history which is then retrieved (Testing Post)", () => {
+        cy.request({
+            url: 'api/routes',
+            method: 'POST',
+            body: {
+                problem: '22 + AA',
+                answer: 'CC',
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(200)
+
+        })
+
+        cy.request({
+            url: 'api/routes',
+            method: 'GET',
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(200)
+            console.log(response.body)
+            expect(response.body.history[response.body.history.length - 1].problem).to.eq('22 + AA')
+        })
+    })
+
+    it("should delete the history", () => {
+        cy.request({
+            url: 'api/routes',
+            method: 'DELETE',
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(200)
+        })
+
+        cy.request({
+            url: 'api/routes',
+            method: 'GET',
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(200)
+            expect(response.body.history.length).to.eq(0)
+        })
+    })
+    
+    it("should show an error message for an invalid request", () => {
+        cy.request({
+            url: 'api/routes',
+            method: 'PUT',
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(405)
+            expect(response.body.message).to.eq('Invalid request')
+        })
+    })
+})
+
 describe('Calculator Database', () => {
     beforeEach(() => {
         cy.visit('/')
@@ -64,3 +131,5 @@ describe('Calculator Database', () => {
         cy.get('@historyField').should('contain', '4A - 24 = 26')
     })
 })
+
+
